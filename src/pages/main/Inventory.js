@@ -32,8 +32,8 @@ class Inventory extends React.Component {
                 <Row type="flex" justify="space-between">
                     <Col span={8}>
                         <div className="heading">
-                            <h2>Inventory</h2>
-                            This is Inventory page
+                            <h2>{addNew ? "Add new inventory" : "Inventory"}</h2>
+                            {addNew ? "Please enter the necessary informations about your new inventory" : "This is Inventory page"}
                         </div>
                     </Col>
                     <Col span={8} style={{ textAlign: 'right' }}>
@@ -56,15 +56,17 @@ class Inventory extends React.Component {
                     onChangeBodyType={this.onChangeBodyType}
                     addNewInventory={addNewInventory}
                     /> : <List
-                    className="inventory-list"
-                    itemLayout="horizontal"
-                    dataSource={inventories}
-                    renderItem={item => <InventoryItem
-                        onDeleteInventory={this.handleDeleteInventory}
-                        expand={expand}
-                        activeItem={activeItem}
-                        toggleExpand={this.handleToggleExpand} key={item.id} item={item}
-                    />}
+                        className="inventory-list"
+                        itemLayout="horizontal"
+                        dataSource={inventories}
+                        renderItem={item => (
+                            <InventoryItem
+                                onDeleteInventory={this.handleDeleteInventory}
+                                expand={expand}
+                                activeItem={activeItem}
+                                toggleExpand={this.handleToggleExpand} key={item.id} item={item}
+                            />
+                        )}
                 />}
             </div>
         )
