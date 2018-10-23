@@ -13,7 +13,10 @@ const InventoryItem = ({ item, expand, toggleExpand, activeItem }) => {
     return (
         <List.Item
             actions={[
-                <Button type="dashed" onClick={() => toggleExpand(item.id)}><Icon type={expand ? "up" : "down"} /> See more</Button>,
+                <Button type="dashed" onClick={() => toggleExpand(item.id)}>
+                    <Icon type={expand && activeItem === item.id ? "up" : "down"} /> 
+                    {expand && activeItem === item.id ? "See less" : "See more"}
+                </Button>,
                 <Popconfirm title="Are you sure want to edit this item?">
                     <Button type="dashed">Edit...</Button>
                 </Popconfirm>
@@ -68,7 +71,7 @@ const InventoryItem = ({ item, expand, toggleExpand, activeItem }) => {
                                     <Col span={24}>
                                         <h4 className="extras">Extra Features</h4>
                                         <List
-                                            grid={{ gutter: 16, md: 3, xs: 1 }}
+                                            grid={{ gutter: 16, md: 3, xs: 2 }}
                                             dataSource={item.extras}
                                             renderItem={ext => (
                                                 <List.Item><Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" /> {ext} </List.Item>

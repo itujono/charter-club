@@ -11,6 +11,25 @@ export const user = {
     address: "3 Science Park, Franklin Building"
 }
 
+export const properties = {
+    transmission: [
+        { id: 1, value: 'auto-dc', text: 'Dual-Clutch Automatic' },
+        { id: 2, value: 'm-6', text: '6-speed Manual' },
+        { id: 3, value: 'm-5', text: '5-speed Manual' }
+    ],
+    years: [
+        { id: 1, value: 2010, text: 2010 },
+        { id: 2, value: 2011, text: 2011 },
+        { id: 3, value: 2012, text: 2012 },
+        { id: 4, value: 2013, text: 2013 },
+        { id: 5, value: 2014, text: 2014 },
+        { id: 6, value: 2015, text: 2015 },
+        { id: 7, value: 2016, text: 2016 },
+        { id: 8, value: 2017, text: 2017 },
+        { id: 9, value: 2018, text: 2018 }
+    ]
+}
+
 export const vehicles = [
     {
         id: 11,
@@ -37,7 +56,7 @@ export const vehicles = [
         kilometers: 29000,
         bodyType: "SUV",
         engine: "V-6 cyl",
-        transmission: "Manual",
+        transmission: "5-speed Manual",
         exteriorColor: "White",
         interiorColor: "Black",
         fuelType: "Gasoline Fuel",

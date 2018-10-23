@@ -66,6 +66,11 @@
                 font-size: initial !important;
             }
         }
+        .ant-list-grid {
+            .ant-list-item {
+                margin-bottom: 0 !important;
+            }
+        }
         .extras {
             color: #777;
         }
