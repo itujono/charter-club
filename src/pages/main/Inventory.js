@@ -6,19 +6,21 @@ import InventoryItem from "../../components/InventoryItem"
 
 
 
-const { years, transmission } = properties
+const { years, transmission, bodyType } = properties
 
 class Inventory extends React.Component {
-    state = { expand: false, activeItem: null, addNew: false }
+    state = { expand: false, activeItem: null, addNew: false, year: '', transmission: '', bodyType: '' }
 
     handleToggleExpand = (activeItem) => this.setState(prevState => ({ expand: !prevState.expand, activeItem }))
     handleToggleAddNew = () => this.setState(prevState => ({ addNew: !prevState.addNew }))
     handleCancelAddNew = () => this.setState({ addNew: false })
     onChangeTransimission = (transmission) => this.setState({ transmission })
     onChangeYear = (year) => this.setState({ year })
+    onChangeBodyType = (bodyType) => this.setState({ bodyType })
+    
 
     render() {
-        const { inventories } = this.props
+        const { inventories, addNewInventory } = this.props
         const { expand, activeItem, addNew } = this.state
 
         return (
@@ -39,10 +41,16 @@ class Inventory extends React.Component {
                 </Row>
                 { addNew ? <NewInventory
                     years={years}
+                    bodyType={bodyType}
+                    bodyState={this.state.bodyType}
+                    year={this.state.year}
+                    trans={this.state.transmission}
                     transmission={transmission}
                     cancelAddNew={this.handleCancelAddNew}
                     onChangeTransmission={this.onChangeTransimission}
                     onChangeYear={this.onChangeYear}
+                    onChangeBodyType={this.onChangeBodyType}
+                    addNewInventory={addNewInventory}
                 /> : <List
                     className="inventory-list"
                     itemLayout="horizontal"

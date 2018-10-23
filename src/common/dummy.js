@@ -13,20 +13,26 @@ export const user = {
 
 export const properties = {
     transmission: [
-        { id: 1, value: 'auto-dc', text: 'Dual-Clutch Automatic' },
-        { id: 2, value: 'm-6', text: '6-speed Manual' },
-        { id: 3, value: 'm-5', text: '5-speed Manual' }
+        { id: 21, value: 'Dual-Clutch Automatic', text: 'Dual-Clutch Automatic' },
+        { id: 22, value: '6-speed Manual', text: '6-speed Manual' },
+        { id: 23, value: '5-speed Manual', text: '5-speed Manual' }
+    ],
+    bodyType: [
+        { id: 41, value: 'sedan', text: 'Sedan' },
+        { id: 42, value: 'mpv', text: 'MPV' },
+        { id: 43, value: 'suv', text: 'SUV' },
+        { id: 44, value: 'coupe', text: 'coupe' }
     ],
     years: [
-        { id: 1, value: 2010, text: 2010 },
-        { id: 2, value: 2011, text: 2011 },
-        { id: 3, value: 2012, text: 2012 },
-        { id: 4, value: 2013, text: 2013 },
-        { id: 5, value: 2014, text: 2014 },
-        { id: 6, value: 2015, text: 2015 },
-        { id: 7, value: 2016, text: 2016 },
-        { id: 8, value: 2017, text: 2017 },
-        { id: 9, value: 2018, text: 2018 }
+        { id: 31, value: 2010, text: 2010 },
+        { id: 32, value: 2011, text: 2011 },
+        { id: 33, value: 2012, text: 2012 },
+        { id: 34, value: 2013, text: 2013 },
+        { id: 35, value: 2014, text: 2014 },
+        { id: 36, value: 2015, text: 2015 },
+        { id: 37, value: 2016, text: 2016 },
+        { id: 38, value: 2017, text: 2017 },
+        { id: 39, value: 2018, text: 2018 }
     ]
 }
 
