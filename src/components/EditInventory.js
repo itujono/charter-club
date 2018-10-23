@@ -1,8 +1,13 @@
 import React from "react"
 import { Formik, Field } from "formik"
-import { Form, Row, Col, Input, Select, Button, Icon } from "antd"
+import { Form, Row, Col, Input, Select, Button, Icon, InputNumber } from "antd"
 
 
+
+
+const onChange = (value) => {
+    console.log(value)
+}
 
 const EditInventory = ({ properties: { transmission, years, bodyType }, transState, yearState, bodyState, item, onCancelEdit, onChangeTransmission, onChangeYear, onChangeBodyType }) => {
 
@@ -19,7 +24,7 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
             onSubmit={(values) => {
                 
             }}
-            render={({ values, handleChange, handleBlur, handleSubmit }) => (
+            render={({ values, handleChange, handleBlur, handleSubmit, dirty }) => (
                 <Form layout="vertical" onSubmit={handleSubmit} className="main-form">
                     <Row gutter={24}>
                         <Col span={8}>
@@ -51,12 +56,9 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
                         </Col>
                         <Col span={6}>
                             <Form.Item label="Transmission">
-                                <Field name="transmission" component="select" placeholder="The transmission of the vehicle">
-                                    { transmission.map(item => <option key={item.id} value={item.value}>{item.text}</option>) }
-                                </Field>
-                                {/* <Select size="large" onBlur={handleBlur} onChange={onChangeTransmission} name="transmission" placeholder="The transmission of the vehicle">
+                                <Select size="large" defaultValue={item.transmission} onBlur={handleBlur} onChange={onChangeTransmission} name="transmission" placeholder="The transmission of the vehicle">
                                     { transmission.map(item => <Select.Option key={item.id} value={item.value}>{item.text}</Select.Option>) }
-                                </Select> */}
+                                </Select>
                             </Form.Item>
                         </Col>
                         <Col span={6}>
@@ -68,7 +70,7 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
                     <Row gutter={24}>
                         <Col span={8}>
                             <Form.Item label="Body Type">
-                                <Select size="large" onBlur={handleBlur} onChange={onChangeBodyType} name="bodyType" placeholder="The body type of the vehicle">
+                                <Select size="large" defaultValue={item.bodyType} onBlur={handleBlur} onChange={onChangeBodyType} name="bodyType" placeholder="The body type of the vehicle">
                                     { bodyType.map(item => <Select.Option key={item.id} value={item.value}>{item.text}</Select.Option>) }
                                 </Select>
                             </Form.Item>
@@ -80,7 +82,7 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
                         </Col>
                         <Col span={8}>
                             <Form.Item label="Year">
-                                <Select size="large" onBlur={handleBlur} onChange={onChangeYear} name="year" placeholder="The year of the vehicle">
+                                <Select size="large" defaultValue={item.year} onBlur={handleBlur} onChange={onChangeYear} name="year" placeholder="The year of the vehicle">
                                     { years.map(item => <Select.Option key={item.id} value={item.value}>{item.text}</Select.Option>) }
                                 </Select>
                             </Form.Item>
@@ -94,11 +96,20 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
                         </Col>
                         <Col span={8}>
                             <Form.Item label="Price">
-                                <Input size="large" onBlur={handleBlur} onChange={handleChange} value={values.price} type="number" name="price" placeholder="The price for rent of the vehicle" />
+                                <InputNumber
+                                    size="large"
+                                    defaultValue={item.price}
+                                    formatter={values => `$ ${values}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    parser={values => values.replace(/\$\s?|(,*)/g, '')}
+                                    onChange={onChange}
+                                    // value={values.price}
+                                    name="price"
+                                    placeholder="The price for rent of the vehicle"
+                                />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Button type="primary" htmlType="submit" size="large"> <Icon type="plus" /> Submit </Button> &nbsp;
+                    <Button type="primary" disabled={!dirty} htmlType="submit" size="large"><Icon type="plus" /> Save changes </Button> &nbsp;
                     <Button size="large" onClick={onCancelEdit}> Cancel </Button>
                 </Form>
             )}

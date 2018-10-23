@@ -23,7 +23,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                     {currentExpanded || currentEdited ? "See less" : "See more"}
                 </Button>,
                 <Popconfirm title="Are you sure want to edit this item?" onConfirm={() => onEditForm(item.id)}>
-                    <Button type="dashed">Edit...</Button>
+                    <Button type="dashed" disabled={currentEdited}>Edit...</Button>
                 </Popconfirm>,
                 <Popconfirm title="Are you sure want to delete this item?" onConfirm={() => onDeleteInventory(item.id)}>
                     <Button type="danger">Delete...</Button>
