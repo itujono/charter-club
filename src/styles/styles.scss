@@ -1,0 +1,16 @@
+@import './settings';
+@import './responsive';
+@import './components';
+
+
+.ant-layout-sider {
+    background: #eee !important;
+}
+
+.ant-layout-sider-trigger {
+    background: #ccc !important;
+}
+
+.heading {
+    margin-bottom: $baseSize * 2;
+}
