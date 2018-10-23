@@ -19,6 +19,7 @@ class Inventory extends React.Component {
     }
     handleToggleAddNew = () => this.setState(prevState => ({ addNew: !prevState.addNew }))
     handleCancelAddNew = () => this.setState({ addNew: false })
+    handleCancelEdit = () => this.setState({ edit: false })
     handleEditForm = (activeItem) => this.setState(prevState => ({ edit: !prevState.edit, activeItem }))
     onChangeTransimission = (transmission) => this.setState({ transmission })
     onChangeYear = (year) => this.setState({ year })
@@ -72,8 +73,11 @@ class Inventory extends React.Component {
                             onChangeBodyType={this.onChangeBodyType}
                             onDeleteInventory={this.handleDeleteInventory}
                             onEditForm={this.handleEditForm}
+                            onCancelEdit={this.handleCancelEdit}
+                            bodyState={this.state.bodyType}
+                            yearState={this.state.year}
+                            transState={this.state.transmission}
                             expand={expand}
-                            cancelAddNew={this.handleCancelAddNew}
                             edit={edit}
                             properties={properties}
                             activeItem={activeItem}

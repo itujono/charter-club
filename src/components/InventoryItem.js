@@ -10,7 +10,7 @@ const Description = ({ title, value }) => (
     </span>
 )
 
-const InventoryItem = ({ item, edit, expand, onChangeTransmission, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, cancelAddNew, activeItem, onDeleteInventory }) => {
+const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, onChangeTransmission, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, onCancelEdit, activeItem, onDeleteInventory }) => {
 
     const currentExpanded = expand && activeItem === item.id
     const currentEdited = edit && activeItem === item.id
@@ -31,10 +31,14 @@ const InventoryItem = ({ item, edit, expand, onChangeTransmission, onEditForm, o
             ]}>
 
             { currentEdited ? <EditInventory
-                cancelAddNew={cancelAddNew}
                 properties={properties}
+                onCancelEdit={onCancelEdit}
                 onChangeBodyType={onChangeBodyType}
                 onChangeYear={onChangeYear}
+                transState={transState}
+                yearState={yearState}
+                bodyState={bodyState}
+                item={item}
                 onChangeTransmission={onChangeTransmission}
             /> : <List.Item.Meta
                     avatar={<Avatar src="http://source.unsplash.com/random/" />}
