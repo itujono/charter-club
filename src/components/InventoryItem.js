@@ -9,7 +9,7 @@ const Description = ({ title, value }) => (
     </span>
 )
 
-const InventoryItem = ({ item, expand, toggleExpand, activeItem }) => {
+const InventoryItem = ({ item, expand, toggleExpand, activeItem, onDeleteInventory }) => {
     return (
         <List.Item
             actions={[
@@ -19,6 +19,9 @@ const InventoryItem = ({ item, expand, toggleExpand, activeItem }) => {
                 </Button>,
                 <Popconfirm title="Are you sure want to edit this item?">
                     <Button type="dashed">Edit...</Button>
+                </Popconfirm>,
+                <Popconfirm title="Are you sure want to delete this item?" onConfirm={() => onDeleteInventory(item.id)}>
+                    <Button type="danger">Delete...</Button>
                 </Popconfirm>
             ]}>
             <List.Item.Meta

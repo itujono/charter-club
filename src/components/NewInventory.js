@@ -6,7 +6,7 @@ import { Form, Row, Col, Input, Select, Button, Icon } from "antd"
 
 const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, cancelAddNew, addNewInventory, onChangeTransmission, onChangeYear, onChangeBodyType }) => (
     <Formik
-        initialValues={{}}
+        initialValues={{ transmission: transmission[0].value }}
         onSubmit={(values) => {
             const data = {
                 title: values.title,

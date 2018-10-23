@@ -6,7 +6,7 @@ import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
 import { saveUserInfo } from "../../state/actions/userActions"
-import { fetchInventories, addNewInventory } from "../../state/actions/inventoryActions"
+import { fetchInventories, addNewInventory, deleteInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
@@ -23,7 +23,7 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
-        const { user, saveUserInfo, inventories, addNewInventory } = this.props
+        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory } = this.props
 
         return (
             <div className="main-app">
@@ -65,7 +65,11 @@ class Main extends React.Component {
 										<Redirect exact from="/" to="/dashboard" />
 										<Route path="/dashboard" component={Dashboard} />
 										<Route path="/inventory" render={() => (
-                                            <Inventory addNewInventory={addNewInventory} inventories={inventories} />
+                                            <Inventory
+                                                deleteInventory={deleteInventory}
+                                                addNewInventory={addNewInventory}
+                                                inventories={inventories}
+                                            />
                                         )} />
 										<Route
                                             path="/profile"
@@ -96,6 +100,8 @@ class Main extends React.Component {
 const mapState = ({ user, inventory }) => ({
     user: user.user,
     inventories: inventory.inventories
-});
+})
 
-export default connect(mapState, { saveUserInfo, fetchInventories, addNewInventory })(Main);
+const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory }
+
+export default connect(mapState, actionList)(Main);

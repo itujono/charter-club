@@ -1,5 +1,5 @@
 import React from "react"
-import { List, Row, Col, Button, Icon } from "antd"
+import { List, Row, Col, Button, Icon, message } from "antd"
 import { properties } from "../../common/dummy"
 import NewInventory from "../../components/NewInventory"
 import InventoryItem from "../../components/InventoryItem"
@@ -17,6 +17,10 @@ class Inventory extends React.Component {
     onChangeTransimission = (transmission) => this.setState({ transmission })
     onChangeYear = (year) => this.setState({ year })
     onChangeBodyType = (bodyType) => this.setState({ bodyType })
+    handleDeleteInventory = (inventoryId) => {
+        this.props.deleteInventory(inventoryId)
+        message.success("The inventory item has been deleted")
+    }
     
 
     render() {
@@ -51,11 +55,16 @@ class Inventory extends React.Component {
                     onChangeYear={this.onChangeYear}
                     onChangeBodyType={this.onChangeBodyType}
                     addNewInventory={addNewInventory}
-                /> : <List
+                    /> : <List
                     className="inventory-list"
                     itemLayout="horizontal"
                     dataSource={inventories}
-                    renderItem={item => <InventoryItem expand={expand} activeItem={activeItem} toggleExpand={this.handleToggleExpand} key={item.id} item={item} />}
+                    renderItem={item => <InventoryItem
+                        onDeleteInventory={this.handleDeleteInventory}
+                        expand={expand}
+                        activeItem={activeItem}
+                        toggleExpand={this.handleToggleExpand} key={item.id} item={item}
+                    />}
                 />}
             </div>
         )

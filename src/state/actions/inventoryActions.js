@@ -1,4 +1,4 @@
-import { FETCH_INVENTORIES, ADD_NEW_INVENTORY } from "../constants";
+import { FETCH_INVENTORIES, ADD_NEW_INVENTORY, DELETE_INVENTORY } from "../constants";
 
 
 export const fetchInventories = () => ({
@@ -7,4 +7,8 @@ export const fetchInventories = () => ({
 
 export const addNewInventory = (data) => ({
     type: ADD_NEW_INVENTORY, payload: data
+})
+
+export const deleteInventory = (inventoryId) => ({
+    type: DELETE_INVENTORY, payload: inventoryId
 })
