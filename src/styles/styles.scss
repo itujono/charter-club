@@ -13,4 +13,32 @@
 
 .heading {
     margin-bottom: $baseSize * 2;
+    h2 {
+        margin-bottom:  0;
+    }
+}
+
+.main-form {
+    &.loading {
+        opacity: .4;
+        transition: all .3s ease;
+    }
+    .ant-form-item-label {
+        label {
+            color: #aaa !important;
+        }
+    }
+    .ant-form-item-control {
+        > span {
+            font-size: $baseSize * 1.2;
+        } 
+    }
+}
+
+.main-segment {
+    padding: $baseSize * 4;
+    background: #ffffff;
+    min-height: 360px;
+    border-radius: 10px;
+    box-shadow: $boxShadow;
 }

@@ -1,4 +1,16 @@
 
+
+export const user = {
+    id: 100,
+    firstName: "Eddie",
+    lastName: "Brock",
+    phone: "+65 7439823",
+    email: "eddieb@mail.com",
+    city: "Singapore",
+    zip: "78887",
+    address: "3 Science Park, Franklin Building"
+}
+
 export const vehicles = [
     {
         id: 11,

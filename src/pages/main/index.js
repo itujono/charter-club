@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
+import { saveUserInfo } from "../../state/actions/userActions";
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
@@ -21,6 +22,7 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
+        const { user, saveUserInfo, loading } = this.props
 
         return (
             <div className="main-app">
@@ -33,6 +35,7 @@ class Main extends React.Component {
 								<NavLink to="/dashboard">
 									<Icon type="pie-chart" />
 									<span>Dashboard</span>
+                                    <p>Your stats live here</p>
 								</NavLink>
 								</Menu.Item>
 								<Menu.Item key="2">
@@ -56,12 +59,23 @@ class Main extends React.Component {
                                     <Breadcrumb.Item>User</Breadcrumb.Item>
                                     <Breadcrumb.Item>Bill</Breadcrumb.Item>
                                 </Breadcrumb>
-                                <div style={{ padding: '4em', background: "#fff", minHeight: 360 }} >
+                                <div className="main-segment">
 									<Switch>
 										<Redirect exact from="/" to="/dashboard" />
 										<Route path="/dashboard" component={Dashboard} />
 										<Route path="/inventory" component={Inventory} />
-										<Route path="/profile" render={() => <Profile onCancelEdit={this.handleCancelEdit} onEditForm={this.handleEditForm} edit={edit} />} />
+										<Route
+                                            path="/profile"
+                                            render={() => (
+                                                <Profile
+                                                    onCancelEdit={this.handleCancelEdit}
+                                                    user={user}
+                                                    onEditForm={this.handleEditForm}
+                                                    edit={edit}
+                                                    loading={loading}
+                                                    saveUserInfo={saveUserInfo}
+                                                />
+                                            )} />
 									</Switch>
                                 </div>
                             </Content>
@@ -77,7 +91,8 @@ class Main extends React.Component {
 }
 
 const mapState = ({ user }) => ({
-    // hello: user.hello
+    user: user.user,
+    loading: user.loading
 });
 
-export default connect(mapState)(Main);
+export default connect(mapState, { saveUserInfo })(Main);
