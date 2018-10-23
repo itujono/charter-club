@@ -5,7 +5,8 @@ import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
-import { saveUserInfo } from "../../state/actions/userActions";
+import { saveUserInfo } from "../../state/actions/userActions"
+import { fetchInventories } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
@@ -22,7 +23,7 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
-        const { user, saveUserInfo, loading } = this.props
+        const { user, saveUserInfo, inventories } = this.props
 
         return (
             <div className="main-app">
@@ -63,7 +64,9 @@ class Main extends React.Component {
 									<Switch>
 										<Redirect exact from="/" to="/dashboard" />
 										<Route path="/dashboard" component={Dashboard} />
-										<Route path="/inventory" component={Inventory} />
+										<Route path="/inventory" render={() => (
+                                            <Inventory inventories={inventories} />
+                                        )} />
 										<Route
                                             path="/profile"
                                             render={() => (
@@ -72,10 +75,10 @@ class Main extends React.Component {
                                                     user={user}
                                                     onEditForm={this.handleEditForm}
                                                     edit={edit}
-                                                    loading={loading}
                                                     saveUserInfo={saveUserInfo}
                                                 />
-                                            )} />
+                                            )}
+                                        />
 									</Switch>
                                 </div>
                             </Content>
@@ -90,9 +93,9 @@ class Main extends React.Component {
     }
 }
 
-const mapState = ({ user }) => ({
+const mapState = ({ user, inventory }) => ({
     user: user.user,
-    loading: user.loading
+    inventories: inventory.inventories
 });
 
-export default connect(mapState, { saveUserInfo })(Main);
+export default connect(mapState, { saveUserInfo, fetchInventories })(Main);

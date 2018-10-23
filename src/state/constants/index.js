@@ -1,3 +1,5 @@
 
 export const SAVE_USER_INFO = 'SAVE_USER_INFO'
 export const LOADING_USER = 'LOADING_USER'
+
+export const FETCH_INVENTORIES = 'FETCH_INVENTORIES'
