@@ -35,6 +35,7 @@ class Inventory extends React.Component {
     }
     handleUpdateInventory = (inventoryId, newData) => {
         this.props.updateInventory(inventoryId, newData)
+        message.success("The inventory has been updated")
     }
     
 

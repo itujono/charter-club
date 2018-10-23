@@ -27,7 +27,8 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                 </Popconfirm>
             ]}>
 
-            { currentEdited ? <EditInventory
+            { currentEdited ? (
+                <EditInventory
                 properties={properties}
                 onCancelEdit={onCancelEdit}
                 onChangeBodyType={onChangeBodyType}
@@ -38,7 +39,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                 bodyState={bodyState}
                 item={item}
                 onChangeTransmission={onChangeTransmission}
-            /> : <List.Item.Meta
+            /> ) : <List.Item.Meta
                     avatar={<Avatar src="http://source.unsplash.com/random/" />}
                     title={item.title}
                     description={currentExpanded ? (

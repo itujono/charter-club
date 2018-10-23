@@ -21,19 +21,22 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
     return (
         <Formik
             initialValues={initialData}
-            onSubmit={(values) => {
+            onSubmit={(values, actions) => {
                 const newData = {
                     ...values,
                     transmission: transState ? transState : item.transmission,
                     bodyType: bodyState ? bodyState : item.bodyType,
                     year: yearState ? yearState : item.year
                 }
-                
-                onUpdateInventory(item.id, newData)
-                onCancelEdit()
+
+                setTimeout(() => {
+                    actions.setSubmitting(false)
+                    onUpdateInventory(item.id, newData)
+                    onCancelEdit()
+                }, 2000)
             }}
-            render={({ values, handleChange, handleBlur, handleSubmit, dirty }) => (
-                <Form layout="vertical" onSubmit={handleSubmit} className="main-form">
+            render={({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                <Form layout="vertical" onSubmit={handleSubmit} className={`main-form ${isSubmitting ? 'loading' : ''}`}>
                     <Row gutter={24}>
                         <Col span={8}>
                             <Form.Item label="Title">
