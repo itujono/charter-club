@@ -19,7 +19,12 @@ class Inventory extends React.Component {
     }
     handleToggleAddNew = () => this.setState(prevState => ({ addNew: !prevState.addNew }))
     handleCancelAddNew = () => this.setState({ addNew: false })
-    handleCancelEdit = () => this.setState({ edit: false })
+    handleCancelEdit = () => {
+        this.setState({ edit: false })
+        if (this.state.expand) {
+            this.setState({ edit: false, expand: false })
+        }
+    }
     handleEditForm = (activeItem) => this.setState(prevState => ({ edit: !prevState.edit, activeItem }))
     onChangeTransimission = (transmission) => this.setState({ transmission })
     onChangeYear = (year) => this.setState({ year })
@@ -27,6 +32,9 @@ class Inventory extends React.Component {
     handleDeleteInventory = (inventoryId) => {
         this.props.deleteInventory(inventoryId)
         message.success("The inventory item has been deleted")
+    }
+    handleUpdateInventory = (inventoryId, newData) => {
+        this.props.updateInventory(inventoryId, newData)
     }
     
 
@@ -39,8 +47,9 @@ class Inventory extends React.Component {
                 <Row type="flex" justify="space-between">
                     <Col span={8}>
                         <div className="heading">
-                            <h2>{addNew ? "Add new inventory" : "Inventory"}</h2>
-                            {addNew ? "Please enter the necessary informations about your new inventory" : "This is Inventory page"}
+                            <h2>{addNew ? "Add new inventory" : ( edit ? "Edit inventory" : "Inventory")}</h2>
+                            {addNew ? "Please enter the necessary informations about your new inventory" 
+                            : ( edit ? "Update your inventory details" : "This is Inventory page")}
                         </div>
                     </Col>
                     <Col span={8} style={{ textAlign: 'right' }}>
@@ -74,6 +83,7 @@ class Inventory extends React.Component {
                             onDeleteInventory={this.handleDeleteInventory}
                             onEditForm={this.handleEditForm}
                             onCancelEdit={this.handleCancelEdit}
+                            onUpdateInventory={this.handleUpdateInventory}
                             bodyState={this.state.bodyType}
                             yearState={this.state.year}
                             transState={this.state.transmission}
@@ -81,7 +91,9 @@ class Inventory extends React.Component {
                             edit={edit}
                             properties={properties}
                             activeItem={activeItem}
-                            toggleExpand={this.handleToggleExpand} key={item.id} item={item}
+                            toggleExpand={this.handleToggleExpand}
+                            key={item.id}
+                            item={item}
                         />
                     )}
                 />}

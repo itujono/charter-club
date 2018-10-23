@@ -101,8 +101,8 @@ const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, c
                         </Form.Item>
                     </Col>
                 </Row>
-                <Button type="primary" htmlType="submit" size="large"> <Icon type="plus" /> Submit </Button> &nbsp;
-                <Button size="large" onClick={cancelAddNew}> Cancel </Button>
+                <Button type="primary" htmlType="submit" size="large"><Icon type="plus" /> Submit </Button> &nbsp;
+                <Button size="large" className="link-btn" onClick={cancelAddNew}> Cancel </Button>
             </Form>
         )}
     />

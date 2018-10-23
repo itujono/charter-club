@@ -10,7 +10,7 @@ const Description = ({ title, value }) => (
     </span>
 )
 
-const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, onChangeTransmission, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, onCancelEdit, activeItem, onDeleteInventory }) => {
+const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, onChangeTransmission, onUpdateInventory, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, onCancelEdit, activeItem, onDeleteInventory }) => {
 
     const currentExpanded = expand && activeItem === item.id
     const currentEdited = edit && activeItem === item.id
@@ -18,12 +18,9 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
     return (
         <List.Item
             actions={[
-                <Button type="dashed" onClick={() => toggleExpand(item.id)}>
-                    <Icon type={currentExpanded || currentEdited ? "up" : "down"} /> 
-                    {currentExpanded || currentEdited ? "See less" : "See more"}
-                </Button>,
+                <Button shape="circle" icon={currentExpanded || currentEdited ? "up" : "down"} className="link-btn" onClick={() => toggleExpand(item.id)} />,
                 <Popconfirm title="Are you sure want to edit this item?" onConfirm={() => onEditForm(item.id)}>
-                    <Button type="dashed" disabled={currentEdited}>Edit...</Button>
+                    <Button shape="circle" icon="edit" className="link-btn" disabled={currentEdited} />
                 </Popconfirm>,
                 <Popconfirm title="Are you sure want to delete this item?" onConfirm={() => onDeleteInventory(item.id)}>
                     <Button type="danger">Delete...</Button>
@@ -35,6 +32,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                 onCancelEdit={onCancelEdit}
                 onChangeBodyType={onChangeBodyType}
                 onChangeYear={onChangeYear}
+                onUpdateInventory={onUpdateInventory}
                 transState={transState}
                 yearState={yearState}
                 bodyState={bodyState}
@@ -48,7 +46,20 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                             <Row gutter={32}>
                                 <Col span={14}>
                                     <Row gutter={16}>
-                                        <Col span={8}>
+                                        <Col span={6}>
+                                            <List itemLayout="horizontal">
+                                                <List.Item>
+                                                    <List.Item.Meta title="Title" description={item.title} />
+                                                </List.Item>
+                                                <List.Item>
+                                                    <List.Item.Meta title="Make" description={item.make} />
+                                                </List.Item>
+                                                <List.Item>
+                                                    <List.Item.Meta title="Model" description={item.model} />
+                                                </List.Item>
+                                            </List>
+                                        </Col>
+                                        <Col span={6}>
                                             <List itemLayout="horizontal">
                                                 <List.Item>
                                                     <List.Item.Meta title="Engine" description={item.engine} />
@@ -61,7 +72,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                                                 </List.Item>
                                             </List>
                                         </Col>
-                                        <Col span={8}>
+                                        <Col span={6}>
                                             <List itemLayout="horizontal">
                                                 <List.Item>
                                                     <List.Item.Meta title="Body type" description={item.bodyType} />
@@ -74,7 +85,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                                                 </List.Item>
                                             </List>
                                         </Col>
-                                        <Col span={8}>
+                                        <Col span={6}>
                                             <List itemLayout="horizontal">
                                                 <List.Item>
                                                     <List.Item.Meta title="Exterior" description={item.exteriorColor} />

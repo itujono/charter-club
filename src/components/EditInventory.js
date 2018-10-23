@@ -9,7 +9,7 @@ const onChange = (value) => {
     console.log(value)
 }
 
-const EditInventory = ({ properties: { transmission, years, bodyType }, transState, yearState, bodyState, item, onCancelEdit, onChangeTransmission, onChangeYear, onChangeBodyType }) => {
+const EditInventory = ({ properties: { transmission, years, bodyType }, transState, yearState, bodyState, item, onCancelEdit, onChangeTransmission, onChangeYear, onChangeBodyType, onUpdateInventory }) => {
 
     const initialData = {
         ...item,
@@ -22,7 +22,15 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
         <Formik
             initialValues={initialData}
             onSubmit={(values) => {
+                const newData = {
+                    ...values,
+                    transmission: transState ? transState : item.transmission,
+                    bodyType: bodyState ? bodyState : item.bodyType,
+                    year: yearState ? yearState : item.year
+                }
                 
+                onUpdateInventory(item.id, newData)
+                onCancelEdit()
             }}
             render={({ values, handleChange, handleBlur, handleSubmit, dirty }) => (
                 <Form layout="vertical" onSubmit={handleSubmit} className="main-form">
@@ -102,15 +110,14 @@ const EditInventory = ({ properties: { transmission, years, bodyType }, transSta
                                     formatter={values => `$ ${values}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={values => values.replace(/\$\s?|(,*)/g, '')}
                                     onChange={onChange}
-                                    // value={values.price}
                                     name="price"
                                     placeholder="The price for rent of the vehicle"
                                 />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Button type="primary" disabled={!dirty} htmlType="submit" size="large"><Icon type="plus" /> Save changes </Button> &nbsp;
-                    <Button size="large" onClick={onCancelEdit}> Cancel </Button>
+                    <Button type="primary" htmlType="submit" size="large"><Icon type="plus" /> Save changes </Button> &nbsp;
+                    <Button size="large" htmlType="button" className="link-btn" onClick={onCancelEdit}> Cancel </Button>
                 </Form>
             )}
         />

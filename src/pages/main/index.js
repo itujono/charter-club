@@ -1,12 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect, BrowserRouter, NavLink } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, Icon, Divider } from "antd";
+import { Layout, Menu, Breadcrumb, Icon, Row, Col, AutoComplete, Input } from "antd"
 import Dashboard from "./Dashboard";
 import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
 import { saveUserInfo } from "../../state/actions/userActions"
-import { fetchInventories, addNewInventory, deleteInventory } from "../../state/actions/inventoryActions"
+import { fetchInventories, addNewInventory, deleteInventory, updateInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
 const SubMenu = Menu.SubMenu
@@ -23,7 +23,7 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
-        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory } = this.props
+        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory } = this.props
 
         return (
             <div className="main-app">
@@ -56,10 +56,19 @@ class Main extends React.Component {
                         <Layout>
                             <Header style={{ background: "#fff", padding: 0 }} />
                             <Content style={{ margin: "0 3em" }}>
-                                <Breadcrumb style={{ margin: "3em 0" }}>
-                                    <Breadcrumb.Item>User</Breadcrumb.Item>
-                                    <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                                </Breadcrumb>
+                                <Row type="flex" justify="space-between">
+                                    <Col span={8}>
+                                        <Breadcrumb style={{ margin: "3em 0" }}>
+                                            <Breadcrumb.Item>User</Breadcrumb.Item>
+                                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                                        </Breadcrumb>
+                                    </Col>
+                                    <Col span={8}>
+                                        {/* <AutoComplete dataSource={inventories}>
+                                            <Input suffix={<Icon type="search" />} />
+                                        </AutoComplete> */}
+                                    </Col>
+                                </Row>
                                 <div className="main-segment">
 									<Switch>
 										<Redirect exact from="/" to="/dashboard" />
@@ -68,6 +77,7 @@ class Main extends React.Component {
                                             <Inventory
                                                 deleteInventory={deleteInventory}
                                                 addNewInventory={addNewInventory}
+                                                updateInventory={updateInventory}
                                                 inventories={inventories}
                                             />
                                         )} />
@@ -102,6 +112,6 @@ const mapState = ({ user, inventory }) => ({
     inventories: inventory.inventories
 })
 
-const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory }
+const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory, updateInventory }
 
 export default connect(mapState, actionList)(Main);

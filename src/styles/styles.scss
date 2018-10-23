@@ -24,6 +24,12 @@
     }
 }
 
+.ant-btn {
+    &.link-btn {
+        border: none;
+    }
+}
+
 .main-form {
     &.loading {
         opacity: .4;

@@ -1,4 +1,4 @@
-import { FETCH_INVENTORIES, ADD_NEW_INVENTORY, DELETE_INVENTORY } from "../constants";
+import { FETCH_INVENTORIES, ADD_NEW_INVENTORY, DELETE_INVENTORY, UPDATE_INVENTORY } from "../constants";
 import { vehicles } from "../../common/dummy";
 
 
@@ -15,6 +15,11 @@ export default (state = initialState, action) => {
             return { ...state, inventories: [ action.payload, ...state.inventories ] }
         case DELETE_INVENTORY:
             return { ...state, inventories: state.inventories.filter(item => item.id !== action.payload) }
+        case UPDATE_INVENTORY:
+            return {
+                ...state,
+                inventories: state.inventories.map(inventory => inventory.id === action.inventoryId ? action.newData : inventory)
+            }
         default:
             return state
     }
