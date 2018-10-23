@@ -16,9 +16,11 @@
 }
 
 .heading {
-    margin-bottom: $baseSize * 2;
+    color: #999;
+    margin-bottom: $baseSize * 3;
     h2 {
         margin-bottom:  0;
+        color: #1890ff;
     }
 }
 
@@ -45,4 +47,27 @@
     min-height: 360px;
     border-radius: 10px;
     box-shadow: $boxShadow;
+}
+
+.inventory-list {
+    .ant-list-item {
+        padding: ($baseSize * 1.4) 0;
+        .ant-list-item-meta-title {
+            color: #1890ff !important;
+            font-size: 18px !important;
+        }
+    }
+    .inventory-detail {
+        margin-top: $baseSize * 3;
+        .ant-list-item {
+            padding: $baseSize 0;
+            .ant-list-item-meta-title {
+                color: #777 !important;
+                font-size: initial !important;
+            }
+        }
+        .extras {
+            color: #777;
+        }
+    }
 }
