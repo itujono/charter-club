@@ -9,11 +9,17 @@ import InventoryItem from "../../components/InventoryItem"
 const { years, transmission, bodyType } = properties
 
 class Inventory extends React.Component {
-    state = { expand: false, activeItem: null, addNew: false, year: '', transmission: '', bodyType: '' }
+    state = { expand: false, activeItem: null, edit: false, addNew: false, year: '', transmission: '', bodyType: '' }
 
-    handleToggleExpand = (activeItem) => this.setState(prevState => ({ expand: !prevState.expand, activeItem }))
+    handleToggleExpand = (activeItem) => {
+        if (this.state.edit) {
+            this.setState(prevState => ({ expand: !prevState.expand, activeItem, edit: false }))
+        }
+        this.setState(prevState => ({ expand: !prevState.expand, activeItem }))
+    }
     handleToggleAddNew = () => this.setState(prevState => ({ addNew: !prevState.addNew }))
     handleCancelAddNew = () => this.setState({ addNew: false })
+    handleEditForm = (activeItem) => this.setState(prevState => ({ edit: !prevState.edit, activeItem }))
     onChangeTransimission = (transmission) => this.setState({ transmission })
     onChangeYear = (year) => this.setState({ year })
     onChangeBodyType = (bodyType) => this.setState({ bodyType })
@@ -25,7 +31,7 @@ class Inventory extends React.Component {
 
     render() {
         const { inventories, addNewInventory } = this.props
-        const { expand, activeItem, addNew } = this.state
+        const { expand, activeItem, addNew, edit } = this.state
 
         return (
             <div>
@@ -56,17 +62,24 @@ class Inventory extends React.Component {
                     onChangeBodyType={this.onChangeBodyType}
                     addNewInventory={addNewInventory}
                     /> : <List
-                        className="inventory-list"
-                        itemLayout="horizontal"
-                        dataSource={inventories}
-                        renderItem={item => (
-                            <InventoryItem
-                                onDeleteInventory={this.handleDeleteInventory}
-                                expand={expand}
-                                activeItem={activeItem}
-                                toggleExpand={this.handleToggleExpand} key={item.id} item={item}
-                            />
-                        )}
+                    className="inventory-list"
+                    itemLayout="horizontal"
+                    dataSource={inventories}
+                    renderItem={item => (
+                        <InventoryItem
+                            onChangeTransmission={this.onChangeTransimission}
+                            onChangeYear={this.onChangeYear}
+                            onChangeBodyType={this.onChangeBodyType}
+                            onDeleteInventory={this.handleDeleteInventory}
+                            onEditForm={this.handleEditForm}
+                            expand={expand}
+                            cancelAddNew={this.handleCancelAddNew}
+                            edit={edit}
+                            properties={properties}
+                            activeItem={activeItem}
+                            toggleExpand={this.handleToggleExpand} key={item.id} item={item}
+                        />
+                    )}
                 />}
             </div>
         )

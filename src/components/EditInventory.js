@@ -4,26 +4,11 @@ import { Form, Row, Col, Input, Select, Button, Icon } from "antd"
 
 
 
-const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, cancelAddNew, addNewInventory, onChangeTransmission, onChangeYear, onChangeBodyType }) => (
+const EditInventory = ({ properties: { transmission, years, bodyType }, cancelAddNew, onChangeTransmission, onChangeYear, onChangeBodyType }) => (
     <Formik
-        initialValues={{ transmission: transmission[0].value }}
+        initialValues={{ }}
         onSubmit={(values) => {
-            const data = {
-                title: values.title,
-                make: values.make,
-                model: values.model,
-                exteriorColor: values.exteriorColor,
-                interiorColor: values.interiorColor,
-                transmission: trans,
-                bodyType: bodyState,
-                engine: values.engine,
-                kilometers: values.kilometers,
-                fuelType: values.fuelType,
-                price: values.price,
-                year
-            }
-            addNewInventory(data)
-            cancelAddNew()
+            
         }}
         render={({ values, handleChange, handleBlur, handleSubmit }) => (
             <Form layout="vertical" onSubmit={handleSubmit} className="main-form">
@@ -108,4 +93,4 @@ const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, c
     />
 )
 
-export default NewInventory
+export default EditInventory
