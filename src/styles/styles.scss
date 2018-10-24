@@ -120,3 +120,20 @@
         }
     }
 }
+
+.ant-collapse {
+    margin-bottom: $baseSize * 3 !important;
+    .ant-collapse-item {
+        border-radius: 8px;
+        background: #f9f9f9;
+        border-bottom: none !important;
+        margin-bottom: $baseSize;
+        box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: .08);
+        &:last-child {
+            border-radius: 8px !important;
+        }
+        .ant-collapse-header {
+            color: #777 !important;
+        }
+    }
+}

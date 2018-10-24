@@ -36,6 +36,145 @@ export const properties = {
     ]
 }
 
+export const orders = [
+    {
+        id: 501,
+        orderedAt: "Thursday, 23 August 2018",
+        timestamp: "05:46:33 PM",
+        charteredFor: "Friday, 24 August 2018",
+        withDriver: true,
+        vehicle: 11,
+        duration: 3,
+        totalPrice: 8400,
+        status: "completed",
+        remarks: "",
+        customer: {
+            name: "Lee Ang Ngok",
+            phone: "+65 7899879",
+            address: "Bishan View Lot #34-44"
+        }
+    },
+    {
+        id: 502,
+        orderedAt: "Monday, 3 September 2018",
+        timestamp: "03:12:33 PM",
+        charteredFor: "Tuesday, 4 September 2018",
+        withDriver: true,
+        vehicle: 12,
+        duration: 2,
+        totalPrice: 6500,
+        status: "completed",
+        remarks: "Customer needs it fast",
+        customer: {
+            name: "David Silveria",
+            phone: "+65 8293499",
+            address: "6 Battery Road #34-900"
+        }
+    },
+    {
+        id: 503,
+        orderedAt: "Friday, 20 September 2018",
+        timestamp: "05:46:33 PM",
+        charteredFor: "Saturday, 21 September 2018",
+        withDriver: true,
+        vehicle: 11,
+        duration: 3,
+        totalPrice: 8400,
+        status: "cancelled",
+        remarks: "",
+        customer: {
+            name: "Tan Hong",
+            phone: "+65 6099899",
+            address: "3 Park Drive #67-67"
+        }
+    },
+    {
+        id: 504,
+        orderedAt: "Tuesday, 9 October 2018",
+        timestamp: "05:46:33 PM",
+        charteredFor: "Wednesday, 10 October 2018",
+        withDriver: false,
+        vehicle: 13,
+        duration: 2,
+        totalPrice: 4500,
+        status: "cancelled",
+        remarks: "Cancelled by customer",
+        customer: {
+            name: "Ronny Jamal",
+            phone: "+65 7899879",
+            address: "21 Lower Kent Ridge Rd"
+        }
+    },
+    {
+        id: 505,
+        orderedAt: "Thursday, 13 September 2018",
+        timestamp: "05:46:33 PM",
+        charteredFor: "Friday, 14 September 2018",
+        withDriver: true,
+        vehicle: 14,
+        duration: 3,
+        totalPrice: 7700,
+        status: "completed",
+        remarks: "",
+        customer: {
+            name: "Lee Ang Ngok",
+            phone: "+65 7899879",
+            address: "Bishan View Lot #34-44"
+        }
+    },
+    {
+        id: 506,
+        orderedAt: "Wednesday, 24 October 2018",
+        timestamp: "05:26:33 AM",
+        charteredFor: "Friday, 26 October 2018",
+        withDriver: true,
+        vehicle: 15,
+        duration: 3,
+        totalPrice: 9000,
+        status: "on-going",
+        remarks: "Needs the car to be cleaned up first",
+        customer: {
+            name: "Lom Kwik",
+            phone: "+65 2223433",
+            address: "1 Gul Crescent"
+        }
+    },
+    {
+        id: 507,
+        orderedAt: "Wednesday, 24 October 2018",
+        timestamp: "05:26:33 AM",
+        charteredFor: "Saturday, 27 October 2018",
+        withDriver: true,
+        vehicle: 11,
+        duration: 1,
+        totalPrice: 2300,
+        status: "on-going",
+        remarks: "",
+        customer: {
+            name: "Abdul Samad",
+            phone: "+65 8404303",
+            address: "10 Collyer Quay 42-01"
+        }
+    },
+    {
+        id: 508,
+        orderedAt: "Sunday, 1 August 2018",
+        timestamp: "05:11:33 PM",
+        charteredFor: "Friday, 6 August 2018",
+        withDriver: false,
+        vehicle: 11,
+        duration: 4,
+        totalPrice: 8000,
+        status: "completed",
+        remarks: "",
+        customer: {
+            name: "James Silvan",
+            phone: "+65 8098799",
+            address: "6 Temasek Blvd"
+        }
+    }
+]
+
 export const vehicles = [
     {
         id: 11,
