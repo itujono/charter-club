@@ -1,12 +1,12 @@
 This project is for educational and testing purposes only.
 
+[Live demo](http://cyder-tryout.surge.sh/)
+
 ## Install
 ```yarn install``` then `yarn start`
 
 ## Production
 ```yarn build```
-
-================
 
 ## Tech Stack
 - React 16
