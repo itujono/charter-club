@@ -31,6 +31,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
 
     return (
         <List.Item
+            className={currentlyEditing || currentlyExpanding ? "expanding" : ""}
             actions={[
                 <Button shape="circle" icon={currentlyExpanding || currentlyEditing ? "up" : "down"} className="link-btn" onClick={() => toggleExpand(item.id)} />,
                 <Popconfirm title="Are you sure want to edit this item?" onConfirm={() => onEditForm(item.id)}>
@@ -67,16 +68,13 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                                                 grid={{ gutter: 16, md: 3, xs: 2 }}
                                                 dataSource={specs}
                                                 renderItem={spec => {
-                                                    if (spec.title === 'Title') {
-                                                        return (
-                                                            <List.Item>
-                                                                <Popover content={spec.description}>
-                                                                    <List.Item.Meta title={spec.title} description={spec.description} />
-                                                                </Popover>
-                                                            </List.Item>
-                                                        )
-                                                    }
-                                                    return (
+                                                    return spec.title === 'Title' ? (
+                                                        <List.Item>
+                                                            <Popover content={spec.description}>
+                                                                <List.Item.Meta title={spec.title} description={spec.description} />
+                                                            </Popover>
+                                                        </List.Item> 
+                                                    ) : (
                                                         <List.Item>
                                                             <List.Item.Meta title={spec.title} description={spec.description} />
                                                         </List.Item>

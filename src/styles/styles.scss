@@ -58,9 +58,15 @@
 .inventory-list {
     .ant-list-item {
         padding: ($baseSize * 1.4) 0;
+        transition: all .3s ease;
         .ant-list-item-meta-title {
             color: $blueish !important;
             font-size: 18px !important;
+        }
+        &.expanding {
+            padding: 2em;
+            background: #fafafa;
+            transition: all .3s ease;
         }
     }
     .ant-list-item-meta-content {
