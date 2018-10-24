@@ -13,7 +13,9 @@ const Description = ({ title, value }) => (
 const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, onChangeTransmission, onUpdateInventory, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, onCancelEdit, activeItem, onDeleteInventory }) => {
 
     const currentlyExpanding = expand && activeItem === item.id
+    const expandingFromSearch = expand && activeItem === item.title
     const currentlyEditing = edit && activeItem === item.id
+    const avatar = item && item.images ? item.images[0] : "http://source.unsplash.com/random/"
     const specs = [
         { title: "Title", description: item.title },
         { title: "Make", description: item.make },
@@ -31,7 +33,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
 
     return (
         <List.Item
-            className={currentlyEditing || currentlyExpanding ? "expanding" : ""}
+            className={currentlyEditing || currentlyExpanding || expandingFromSearch ? "expanding" : ""}
             actions={[
                 <Button shape="circle" icon={currentlyExpanding || currentlyEditing ? "up" : "down"} className="link-btn" onClick={() => toggleExpand(item.id)} />,
                 <Popconfirm title="Are you sure want to edit this item?" onConfirm={() => onEditForm(item.id)}>
@@ -55,9 +57,9 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                     item={item}
                     onChangeTransmission={onChangeTransmission}
                 /> ) : <List.Item.Meta
-                        avatar={<Avatar src={item.images[0]} />}
+                        avatar={<Avatar src={avatar} />}
                         title={item.title}
-                        description={currentlyExpanding ? (
+                        description={currentlyExpanding || expandingFromSearch ? (
                         <div className="inventory-detail">
                             <Row gutter={32}>
                                 <Col lg={14} xs={20}>
@@ -98,7 +100,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                                     </Row>
                                 </Col>
                                 <Col lg={8} xs={20}>
-                                    { item.images.length > 1 ? (
+                                    { item.images && item.images.length > 1 ? (
                                         <Carousel autoplay>
                                             { item.images.map(img => <img src={img} width="100%" height="100%" />) }
                                         </Carousel>

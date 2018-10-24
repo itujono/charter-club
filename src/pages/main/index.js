@@ -1,6 +1,6 @@
 import React from "react";
-import { Switch, Route, Redirect, BrowserRouter, NavLink } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, Icon, Row, Col } from "antd"
+import { Switch, Route, Redirect, BrowserRouter, NavLink, withRouter } from "react-router-dom";
+import { Layout, Menu, Breadcrumb, Icon, Row, Col, AutoComplete, Input } from "antd"
 import Dashboard from "./Dashboard/index";
 import Profile from "./Profile";
 import Inventory from "./Inventory";
@@ -10,6 +10,11 @@ import { fetchOrders, cancelOrder, approveOrder, completeOrder } from "../../sta
 import { fetchInventories, addNewInventory, deleteInventory, updateInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
+
+const location = window.location.pathname.split("/")[1]
+
+const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
+
 
 class Main extends React.Component {
 	state = { collapsed: false, edit: false }
@@ -24,7 +29,7 @@ class Main extends React.Component {
 
         const { edit } = this.state
         const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders, cancelOrder,
-            orderProps, approveOrder, completeOrder } = this.props;
+            orderProps, approveOrder, completeOrder, titles } = this.props;
 
         return (
             <div className="main-app">
@@ -37,13 +42,16 @@ class Main extends React.Component {
                             breakpoint="lg"
                             collapsedWidth="0"
                         >
-                            <div className="logo" />
-                            <Menu defaultSelectedKeys={["1"]} mode="inline" >
+                            <div className="logo">
+                                <h3>Charter</h3>
+                                <h3>Club</h3>
+                                <h3 className="orange">SG</h3>
+                            </div>
+                            <Menu mode="inline" >
 								<Menu.Item key="1">
 								<NavLink to="/dashboard">
 									<Icon type="pie-chart" />
 									<span>Dashboard</span>
-                                    <p>Your stats live here</p>
 								</NavLink>
 								</Menu.Item>
 								<Menu.Item key="2">
@@ -61,19 +69,17 @@ class Main extends React.Component {
                             </Menu>
                         </Sider>
                         <Layout>
-                            <Header style={{ background: "#fff", padding: 0 }} />
+                            {/* <Header style={{ background: "#fff", padding: 0 }} /> */}
                             <Content style={{ margin: "0 3em" }}>
-                                <Row type="flex" justify="space-between">
+                                <Row type="flex" justify="space-between" align="middle">
                                     <Col span={8}>
                                         <Breadcrumb style={{ margin: "3em 0" }}>
-                                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                                            <Breadcrumb.Item>app</Breadcrumb.Item>
+                                            <Breadcrumb.Item>{location}</Breadcrumb.Item>
                                         </Breadcrumb>
                                     </Col>
-                                    <Col span={8}>
-                                        {/* <AutoComplete dataSource={inventories}>
-                                            <Input suffix={<Icon type="search" />} />
-                                        </AutoComplete> */}
+                                    <Col span={8} style={{ textAlign: 'right' }}>
+
                                     </Col>
                                 </Row>
                                 <div className="main-segment">
@@ -94,6 +100,7 @@ class Main extends React.Component {
                                                 addNewInventory={addNewInventory}
                                                 updateInventory={updateInventory}
                                                 inventories={inventories}
+                                                titles={titles}
                                             />
                                         )} />
 										<Route
@@ -131,10 +138,13 @@ const mapState = ({ user, inventory, order }) => {
         orderCompleted: order.orderCompleted
     }
 
+    const inventoryTitle = inventory && inventory.inventories.map(inv => inv.title)
+
     return {
         user: user.user,
         inventories: inventory.inventories,
         orders: order.orders,
+        titles: inventoryTitle,
         orderProps
     }
 }

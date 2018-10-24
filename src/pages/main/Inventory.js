@@ -1,5 +1,5 @@
 import React from "react"
-import { List, Row, Col, Button, Icon, message } from "antd"
+import { List, Row, Col, Button, Icon, message, Input, AutoComplete } from "antd"
 import { properties } from "../../common/dummy"
 import NewInventory from "../../components/NewInventory"
 import InventoryItem from "../../components/InventoryItem"
@@ -19,6 +19,9 @@ class Inventory extends React.Component {
         }
         this.setState(prevState => ({ expand: !prevState.expand, activeItem }))
     }
+
+    handleExpand = (activeItem) => this.setState({ expand: true, activeItem })
+
     handleToggleAddNew = () => this.setState(prevState => ({ addNew: !prevState.addNew }))
     handleCancelAddNew = () => this.setState({ addNew: false })
     handleCancelEdit = () => {
@@ -40,13 +43,38 @@ class Inventory extends React.Component {
         message.success("The inventory has been updated")
     }
     
+    handleSearch = (value) => {
+        console.log(value)
+    }
+
+    handleSelectSearch = (value) => {
+        this.setState({ expand: true, activeItem: value })
+        value = ''
+    }
+    
 
     render() {
-        const { inventories, addNewInventory } = this.props
+        const { inventories, addNewInventory, titles } = this.props
         const { expand, activeItem, addNew, edit } = this.state
 
         return (
             <div>
+                <Row type="flex" justify="end" className="search-container">
+                    <Col>
+                        <AutoComplete
+                            dataSource={titles}
+                            style={{ width: 300 }}
+                            onSelect={this.handleSelectSearch}
+                            onSearch={this.handleSearch}
+                            placeholder="Find you inventory..."
+                            filterOption={(input, option) => {
+                                return option.props.children.toUpperCase().indexOf(input.toUpperCase()) !== -1
+                            }}
+                        >
+                            <Input size="large" suffix={<Icon type="search" />} />
+                        </AutoComplete>
+                    </Col>
+                </Row>
                 <Row type="flex" justify="space-between" align="middle">
                     <Col span={8}>
                         <div className="heading">
