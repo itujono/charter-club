@@ -131,7 +131,7 @@ export const orders = [
         vehicle: 15,
         duration: 3,
         totalPrice: 9000,
-        status: "on-going",
+        status: "unprocessed",
         remarks: "Needs the car to be cleaned up first",
         customer: {
             name: "Lom Kwik",
@@ -148,7 +148,7 @@ export const orders = [
         vehicle: 11,
         duration: 1,
         totalPrice: 2300,
-        status: "on-going",
+        status: "unprocessed",
         remarks: "",
         customer: {
             name: "Abdul Samad",
@@ -172,7 +172,24 @@ export const orders = [
             phone: "+65 8098799",
             address: "6 Temasek Blvd"
         }
-    }
+    },
+    {
+        id: 509,
+        orderedAt: "Wednesday, 24 October 2018",
+        timestamp: "05:11:33 PM",
+        charteredFor: "Friday, 26 October 2018",
+        withDriver: true,
+        vehicle: 15,
+        duration: 4,
+        totalPrice: 5000,
+        status: "unprocessed",
+        remarks: "He wants the service ASAP",
+        customer: {
+            name: "James Silvan",
+            phone: "+65 8098799",
+            address: "6 Temasek Blvd"
+        }
+    },
 ]
 
 export const vehicles = [

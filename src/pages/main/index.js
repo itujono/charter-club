@@ -1,12 +1,12 @@
 import React from "react";
 import { Switch, Route, Redirect, BrowserRouter, NavLink } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon, Row, Col } from "antd"
-import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard/index";
 import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
 import { saveUserInfo } from "../../state/actions/userActions"
-import { fetchOrders } from "../../state/actions/orderActions";
+import { fetchOrders, cancelOrder, approveOrder } from "../../state/actions/orderActions";
 import { fetchInventories, addNewInventory, deleteInventory, updateInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
@@ -23,7 +23,7 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
-        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders } = this.props
+        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders, cancelOrder, orderProps } = this.props
 
         return (
             <div className="main-app">
@@ -78,7 +78,14 @@ class Main extends React.Component {
                                 <div className="main-segment">
 									<Switch>
 										<Redirect exact from="/" to="/dashboard" />
-										<Route path="/dashboard" render={() => <Dashboard orders={orders} />} />
+										<Route path="/dashboard" render={() => (
+                                            <Dashboard
+                                                orders={orders}
+                                                cancelOrder={cancelOrder}
+                                                approveOrder={approveOrder}
+                                                orderProps={orderProps}
+                                            />
+                                        )} />
 										<Route path="/inventory" render={() => (
                                             <Inventory
                                                 deleteInventory={deleteInventory}
@@ -113,12 +120,23 @@ class Main extends React.Component {
     }
 }
 
-const mapState = ({ user, inventory, order }) => ({
-    user: user.user,
-    inventories: inventory.inventories,
-    orders: order.orders
-})
+const mapState = ({ user, inventory, order }) => {
 
-const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory, updateInventory, fetchOrders }
+    const orderProps = {
+        orderCancelled: order.orderCancelled,
+        orderOngoing: order.orderOngoing,
+        orderUnprocessed: order.orderUnprocessed,
+        orderCompleted: order.orderCompleted
+    }
+
+    return {
+        user: user.user,
+        inventories: inventory.inventories,
+        orders: order.orders,
+        orderProps
+    }
+}
+
+const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory, updateInventory, fetchOrders, cancelOrder, approveOrder }
 
 export default connect(mapState, actionList)(Main);
