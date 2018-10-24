@@ -1,5 +1,5 @@
 import React from "react"
-import { Row, Col, List, Collapse, Icon, Button, Popconfirm, message } from "antd"
+import { Row, Col, List, Collapse, Icon, Button, Popconfirm, message, Select } from "antd"
 import OrderInformation from "./OrderInformation";
 
 
@@ -7,24 +7,97 @@ import OrderInformation from "./OrderInformation";
 
 class Dashboard extends React.Component {
 
+    state = { filtered: false }
+
     handleCancelOrder = (orderId) => {
-        this.props.cancelOrder(orderId)
-        message.success("This order has been cancelled")
+        if (this.state.filtered) {
+            this.setState({ filtered: false })
+            this.props.cancelOrder(orderId)
+            message.success("This order has been cancelled")
+        } else {
+            this.props.cancelOrder(orderId)
+            message.success("This order has been cancelled")
+        }
+
     }
 
     handleApproveOrder = (orderId) => {
-        this.props.approveOrder(orderId)
-        message.success("The order has been approved")
+        if (this.state.filtered) {
+            this.setState({ filtered: false })
+            this.props.approveOrder(orderId)
+            message.success("The order has been approved")
+        } else {
+            this.props.approveOrder(orderId)
+            message.success("The order has been approved")
+        }
+
     }
 
     handleCompleteOrder = (orderId) => {
-        this.props.completeOrder(orderId)
-        message.success("The order has been marked as completed")
+        if (this.state.filtered) {
+            this.setState({ filtered: false })
+            this.props.completeOrder(orderId)
+            message.success("The order has been marked as completed")
+        } else {
+            this.props.completeOrder(orderId)
+            message.success("The order has been marked as completed")
+        }
+    }
+
+    renderFilteredData = () => {
+        const { filteredData } = this.state
+        const status = filteredData.map(item => item.status)[0]
+
+        return filteredData && filteredData.map(order => (
+            <Collapse.Panel header={`${order.customer.name} - ${order.charteredFor}`} key={order.id}>
+                <Row>
+                    <Col span={8}>
+                        <h3>{order.customer.name}</h3>
+                        <ul>
+                            <li><Icon type="phone" theme="outlined" /> {order.customer.phone} </li>
+                            <li><Icon type="home" theme="outlined" /> {order.customer.address} </li>
+                            <li><Icon type="clock-circle" theme="outlined" /> {order.charteredFor} </li>
+                        </ul>
+                    </Col>
+                    <Col span={16}>
+                        <OrderInformation order={order} />
+                    </Col>
+                </Row>
+                { status === 'unprocessed' && (
+                    <div className="actions">
+                        <Popconfirm
+                            title="Are you sure want to approve this order?"
+                            onConfirm={() => this.handleApproveOrder(order.id)}
+                        >
+                            <Button type="primary" size="large">
+                                <Icon type="plus" /> Approve this order...
+                            </Button>
+                        </Popconfirm> &nbsp;
+                        <Popconfirm
+                            title="Are you sure want to cancel this order?"
+                            onConfirm={() => this.handleCancelOrder(order.id)}
+                        >
+                            <Button type="dashed" size="large" className="link-btn"> Cancel this order... </Button>
+                        </Popconfirm>
+                    </div>
+                ) }
+            </Collapse.Panel>
+        ))
+    }
+
+    handleChange = (value) => {
+        const { orders } = this.props
+        this.setState({ filtered: true })
+        const filtered = orders.filter(item => item.status === value)
+        if (value === 'all') this.setState({ filtered: false })
+        this.setState({ filteredData: filtered })
+        return filtered
     }
 
     render() {
 
         const { orderProps: { orderCancelled, orderOngoing, orderUnprocessed, orderCompleted } } = this.props
+        const { filteredData } = this.state
 
         return (
             <div>
@@ -35,13 +108,25 @@ class Dashboard extends React.Component {
                             This is Dashboard page
                         </div>
                     </Col>
-                    <Col span={8}>
-                        Heheh something
+                    <Col span={8} style={{ textAlign: 'right' }}>
+                        Filter only {" "} &nbsp;
+                        <Select
+                            showSearch
+                            style={{ width: 200 }}
+                            placeholder="Filter the order status..."
+                            optionFilterProp="children"
+                            onChange={this.handleChange}
+                        >
+                            <Select.Option value="all">All</Select.Option>
+                            <Select.Option value="unprocessed">Unprocessed</Select.Option>
+                            <Select.Option value="on-going">On-going</Select.Option>
+                            <Select.Option value="completed">Completed</Select.Option>
+                            <Select.Option value="cancelled">Cancelled</Select.Option>
+                        </Select>
                     </Col>
                 </Row>
                 <Row className="order-list">
-                    <Col>
-
+                    { !this.state.filtered ? <Col>
                         <h3>Unprocessed - <span>{orderUnprocessed.length} {orderUnprocessed.length > 1 ? "orders" : "order"}</span></h3>
                         <Collapse bordered={false}>
                             { orderUnprocessed && orderUnprocessed.map(order => (
@@ -161,25 +246,14 @@ class Dashboard extends React.Component {
                                 </Collapse.Panel>
                             )) }
                         </Collapse>
-                        {/* <List itemLayout="horizontal" header="Completed">
-                        </List>
-                        <List itemLayout="horizontal" header="Cancelled">
-                            { orders && orders.filter(order => order.status === 'cancelled').map(order => (
-                                <List.Item key={order.id}>
-                                    <h3>{order.customer.name}</h3>
-                                    { order.customer.phone } | { order.customer.address }
-                                </List.Item>
-                            )) }
-                        </List>
-                        <List itemLayout="horizontal" header="On-going">
-                            { orders && orders.filter(order => order.status === 'on-going').map(order => (
-                                <List.Item key={order.id}>
-                                    <h3>{order.customer.name}</h3>
-                                    { order.customer.phone } | { order.customer.address }
-                                </List.Item>
-                            )) }
-                        </List> */}
-                    </Col>
+                    </Col> : (
+                        <React.Fragment>
+                            <h3>{filteredData.map(item => item.status)[0]} - <span>{filteredData.length} {filteredData.length > 1 ? "orders" : "order"}</span></h3>
+                            <Collapse bordered={false}>
+                                {this.renderFilteredData()}
+                            </Collapse>
+                        </React.Fragment>
+                    )}
                 </Row>
             </div>
         )
