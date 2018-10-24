@@ -51,6 +51,7 @@ export const vehicles = [
         interiorColor: "Jet Black",
         fuelType: "Gasoline Fuel",
         price: 2800,
+        images: ["https://www.lakenormaninfiniti.com/inventoryphotos/909/1n4aa5ap4ec910966/ip/2.jpg", "https://www.eastcharlottenissan.com/inventoryphotos/909/1n4aa5ap4ec910966/ip/6.jpg"],
         extras: ["Security System", "Air Conditioning", "Alloy Wheels", "Anti-lock Brakes", "Anti-Theft", "Anti-Starter", "Dual Airbag", "Intermittent Wipers", "Keyless Entry", "Power Mirrors", "Power Seat", "Power Steering", "CD Player"]
     },
     {
@@ -67,6 +68,7 @@ export const vehicles = [
         interiorColor: "Black",
         fuelType: "Gasoline Fuel",
         price: 2100,
+        images: ["https://2-photos7.motorcar.com/new-2018-toyota-rav4-seawd-8481-17850305-5-1024.jpg", "https://4-photos7.motorcar.com/used-2018-toyota-rav4-leawd-8481-17400334-8-1024.jpg"],
         extras: ["Security System", "Air Conditioning", "Alloy Wheels", "Anti-lock Brakes", "Anti-Theft", "Anti-Starter", "Dual Airbag", "Intermittent Wipers", "Keyless Entry", "Power Mirrors"]
     },
     {
@@ -83,6 +85,7 @@ export const vehicles = [
         interiorColor: "Maroon",
         fuelType: "Gasoline Fuel",
         price: 1800,
+        images: ["https://carsales.pxcrush.net/carsales/car/dealer/05c89ea72da3249cc28cd28108b06fc5.jpg?pxc_method=crop&pxc_size=670%2C447"],
         extras: ["Security System", "Air Conditioning", "Alloy Wheels", "Anti-lock Brakes", "Anti-Theft", "Anti-Starter", "Dual Airbag", "Intermittent Wipers", "Keyless Entry", "Power Mirrors", "Power Seat"]
     },
     {
@@ -99,6 +102,7 @@ export const vehicles = [
         interiorColor: "Jet Black",
         fuelType: "Gasoline Fuel",
         price: 2000,
+        images: ["https://i2.wp.com/www.enthusiast-owned.com/wp-content/uploads/Ken_S4_01.jpg", "https://farm5.static.flickr.com/4145/4985501838_cfee50aed8_b.jpg"],
         extras: ["Security System", "Air Conditioning", "Alloy Wheels", "Anti-lock Brakes", "Anti-Theft", "Anti-Starter", "Dual Airbag", "Power Mirrors", "Power Seat", "Power Steering", "CD Player"]
     },
     {
@@ -115,6 +119,7 @@ export const vehicles = [
         interiorColor: "Jet Black",
         fuelType: "Gasoline Fuel",
         price: 3300,
+        images: ["http://2-photos.motorcar.com/used-2007-ferrari-f430-basetrim-6383-5734106-1-640.jpg", "https://e0415552026373f497aa-79445249ccb41a60f7b99c8ef6df8604.ssl.cf3.rackcdn.com/4_async_wmarker/2018/7/23/1e98a82cd5df857f1c4cb3bf74b69691e0cd3940/main.jpeg"],
         extras: ["Security System", "Air Conditioning", "Anti-Starter", "Dual Airbag", "Intermittent Wipers", "Keyless Entry", "Power Mirrors", "Power Seat", "Power Steering", "CD Player"]
     },
 ]

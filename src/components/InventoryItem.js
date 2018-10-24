@@ -1,5 +1,5 @@
 import React from "react"
-import { List, Avatar, Button, Icon, Popconfirm, Row, Col, Divider } from "antd"
+import { List, Avatar, Button, Icon, Popconfirm, Row, Col, Divider, Carousel, Popover } from "antd"
 import EditInventory from "../components/EditInventory";
 
 
@@ -12,94 +12,82 @@ const Description = ({ title, value }) => (
 
 const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, onChangeTransmission, onUpdateInventory, onEditForm, onChangeBodyType, onChangeYear, toggleExpand, properties, onCancelEdit, activeItem, onDeleteInventory }) => {
 
-    const currentExpanded = expand && activeItem === item.id
-    const currentEdited = edit && activeItem === item.id
+    const currentlyExpanding = expand && activeItem === item.id
+    const currentlyEditing = edit && activeItem === item.id
+    const specs = [
+        { title: "Title", description: item.title },
+        { title: "Make", description: item.make },
+        { title: "Model", description: item.model },
+        { title: "Engine", description: item.engine },
+        { title: "Year", description: item.year },
+        { title: "Kilometers", description: item.kilometers },
+        { title: "Transmission", description: item.transmission },
+        { title: "Body type", description: item.bodyType },
+        { title: "Fuel", description: item.fuelType },
+        { title: "Price", description: item.price },
+        { title: "Exterior color", description: item.exteriorColor },
+        { title: "Interior color", description: item.interiorColor }
+    ]
 
     return (
         <List.Item
             actions={[
-                <Button shape="circle" icon={currentExpanded || currentEdited ? "up" : "down"} className="link-btn" onClick={() => toggleExpand(item.id)} />,
+                <Button shape="circle" icon={currentlyExpanding || currentlyEditing ? "up" : "down"} className="link-btn" onClick={() => toggleExpand(item.id)} />,
                 <Popconfirm title="Are you sure want to edit this item?" onConfirm={() => onEditForm(item.id)}>
-                    <Button shape="circle" icon="edit" className="link-btn" disabled={currentEdited} />
+                    <Button shape="circle" icon="edit" className="link-btn" disabled={currentlyEditing} />
                 </Popconfirm>,
                 <Popconfirm title="Are you sure want to delete this item?" onConfirm={() => onDeleteInventory(item.id)}>
                     <Button type="danger">Delete...</Button>
                 </Popconfirm>
             ]}>
 
-            { currentEdited ? (
+            { currentlyEditing ? (
                 <EditInventory
-                properties={properties}
-                onCancelEdit={onCancelEdit}
-                onChangeBodyType={onChangeBodyType}
-                onChangeYear={onChangeYear}
-                onUpdateInventory={onUpdateInventory}
-                transState={transState}
-                yearState={yearState}
-                bodyState={bodyState}
-                item={item}
-                onChangeTransmission={onChangeTransmission}
-            /> ) : <List.Item.Meta
-                    avatar={<Avatar src="http://source.unsplash.com/random/" />}
-                    title={item.title}
-                    description={currentExpanded ? (
+                    properties={properties}
+                    onCancelEdit={onCancelEdit}
+                    onChangeBodyType={onChangeBodyType}
+                    onChangeYear={onChangeYear}
+                    onUpdateInventory={onUpdateInventory}
+                    transState={transState}
+                    yearState={yearState}
+                    bodyState={bodyState}
+                    item={item}
+                    onChangeTransmission={onChangeTransmission}
+                /> ) : <List.Item.Meta
+                        avatar={<Avatar src={item.images[0]} />}
+                        title={item.title}
+                        description={currentlyExpanding ? (
                         <div className="inventory-detail">
                             <Row gutter={32}>
-                                <Col span={14}>
+                                <Col lg={14} xs={20}>
                                     <Row gutter={16}>
-                                        <Col span={6}>
-                                            <List itemLayout="horizontal">
-                                                <List.Item>
-                                                    <List.Item.Meta title="Title" description={item.title} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Make" description={item.make} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Model" description={item.model} />
-                                                </List.Item>
-                                            </List>
-                                        </Col>
-                                        <Col span={6}>
-                                            <List itemLayout="horizontal">
-                                                <List.Item>
-                                                    <List.Item.Meta title="Engine" description={item.engine} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Year" description={item.year} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Kilometers" description={item.kilometers} />
-                                                </List.Item>
-                                            </List>
-                                        </Col>
-                                        <Col span={6}>
-                                            <List itemLayout="horizontal">
-                                                <List.Item>
-                                                    <List.Item.Meta title="Body type" description={item.bodyType} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Fuel" description={item.fuelType} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Price" description={`$${item.price} / day`} />
-                                                </List.Item>
-                                            </List>
-                                        </Col>
-                                        <Col span={6}>
-                                            <List itemLayout="horizontal">
-                                                <List.Item>
-                                                    <List.Item.Meta title="Exterior" description={item.exteriorColor} />
-                                                </List.Item>
-                                                <List.Item>
-                                                    <List.Item.Meta title="Interior" description={item.interiorColor} />
-                                                </List.Item>
-                                            </List>
+                                        <Col>
+                                            <h4 className="extras">Specifications</h4>
+                                            <List
+                                                grid={{ gutter: 16, md: 3, xs: 2 }}
+                                                dataSource={specs}
+                                                renderItem={spec => {
+                                                    if (spec.title === 'Title') {
+                                                        return (
+                                                            <List.Item>
+                                                                <Popover content={spec.description}>
+                                                                    <List.Item.Meta title={spec.title} description={spec.description} />
+                                                                </Popover>
+                                                            </List.Item>
+                                                        )
+                                                    }
+                                                    return (
+                                                        <List.Item>
+                                                            <List.Item.Meta title={spec.title} description={spec.description} />
+                                                        </List.Item>
+                                                    )
+                                                }}
+                                            />
                                         </Col>
                                     </Row>
                                     <Divider />
                                     <Row>
-                                        <Col span={24}>
+                                        <Col>
                                             <h4 className="extras">Extra Features</h4>
                                             <List
                                                 grid={{ gutter: 16, md: 3, xs: 2 }}
@@ -111,8 +99,16 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                                         </Col>
                                     </Row>
                                 </Col>
-                                <Col span={8}>
-                                    <img src="http://source.unsplash.com/random/" width="250" />
+                                <Col lg={8} xs={20}>
+                                    { item.images.length > 1 ? (
+                                        <Carousel autoplay>
+                                            { item.images.map(img => <img src={img} width="100%" height="100%" />) }
+                                        </Carousel>
+                                    ) : (
+                                        <div className="image-wrapper">
+                                            <img src={item.images[0]} width="100%" height="100%" />
+                                        </div>
+                                    )}
                                 </Col>
                             </Row>
                         </div>
@@ -122,7 +118,8 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                         <Description key="kilometers" title="Kilometers" value={item.kilometers} />,
                         <Description key="price" title="Price" value={`$${item.price} per day`} />
                     ]}
-                />}
+                />
+            }
 
         </List.Item>
     )

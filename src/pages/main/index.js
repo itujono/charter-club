@@ -9,7 +9,6 @@ import { saveUserInfo } from "../../state/actions/userActions"
 import { fetchInventories, addNewInventory, deleteInventory, updateInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
-const SubMenu = Menu.SubMenu
 
 class Main extends React.Component {
 	state = { collapsed: false, edit: false }
@@ -29,7 +28,13 @@ class Main extends React.Component {
             <div className="main-app">
                 <BrowserRouter>
                     <Layout style={{ minHeight: "100vh" }}>
-                        <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} >
+                        <Sider
+                            collapsible
+                            collapsed={this.state.collapsed}
+                            onCollapse={this.onCollapse}
+                            breakpoint="lg"
+                            collapsedWidth="0"
+                        >
                             <div className="logo" />
                             <Menu defaultSelectedKeys={["1"]} mode="inline" >
 								<Menu.Item key="1">

@@ -20,7 +20,7 @@
     margin-bottom: $baseSize * 3;
     h2 {
         margin-bottom:  0;
-        color: #1890ff;
+        color: $blueish;
     }
 }
 
@@ -59,8 +59,16 @@
     .ant-list-item {
         padding: ($baseSize * 1.4) 0;
         .ant-list-item-meta-title {
-            color: #1890ff !important;
+            color: $blueish !important;
             font-size: 18px !important;
+        }
+    }
+    .ant-list-item-meta-content {
+        width: 20px;
+        .ant-list-item-meta-description {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden
         }
     }
     .inventory-detail {
@@ -79,6 +87,30 @@
         }
         .extras {
             color: #777;
+        }
+        .image-wrapper {
+            width: 300px;
+            img {
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: $boxShadow;
+            }
+        }
+    }
+}
+
+.ant-carousel {
+    width: 340px;
+    .slick-slide {
+        text-align: center;
+        height: 160px;
+        line-height: 160px;
+        background: transparent;
+        overflow: hidden;
+        img {
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: $boxShadow;
         }
     }
 }

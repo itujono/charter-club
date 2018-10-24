@@ -14,6 +14,8 @@ class Inventory extends React.Component {
     handleToggleExpand = (activeItem) => {
         if (this.state.edit) {
             this.setState(prevState => ({ expand: !prevState.expand, activeItem, edit: false }))
+        } else if (this.state.edit && this.state.expand) {
+            this.setState({ expand: false, edit: false })
         }
         this.setState(prevState => ({ expand: !prevState.expand, activeItem }))
     }
@@ -45,7 +47,7 @@ class Inventory extends React.Component {
 
         return (
             <div>
-                <Row type="flex" justify="space-between">
+                <Row type="flex" justify="space-between" align="middle">
                     <Col span={8}>
                         <div className="heading">
                             <h2>{addNew ? "Add new inventory" : ( edit ? "Edit inventory" : "Inventory")}</h2>
