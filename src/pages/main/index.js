@@ -6,7 +6,7 @@ import Profile from "./Profile";
 import Inventory from "./Inventory";
 import { connect } from "react-redux";
 import { saveUserInfo } from "../../state/actions/userActions"
-import { fetchOrders, cancelOrder, approveOrder } from "../../state/actions/orderActions";
+import { fetchOrders, cancelOrder, approveOrder, completeOrder } from "../../state/actions/orderActions";
 import { fetchInventories, addNewInventory, deleteInventory, updateInventory } from "../../state/actions/inventoryActions"
 
 const { Header, Footer, Sider, Content } = Layout
@@ -23,7 +23,8 @@ class Main extends React.Component {
     render() {
 
         const { edit } = this.state
-        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders, cancelOrder, orderProps } = this.props
+        const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders, cancelOrder,
+            orderProps, approveOrder, completeOrder } = this.props;
 
         return (
             <div className="main-app">
@@ -83,6 +84,7 @@ class Main extends React.Component {
                                                 orders={orders}
                                                 cancelOrder={cancelOrder}
                                                 approveOrder={approveOrder}
+                                                completeOrder={completeOrder}
                                                 orderProps={orderProps}
                                             />
                                         )} />
@@ -137,6 +139,16 @@ const mapState = ({ user, inventory, order }) => {
     }
 }
 
-const actionList = { saveUserInfo, fetchInventories, addNewInventory, deleteInventory, updateInventory, fetchOrders, cancelOrder, approveOrder }
+const actionList = {
+    saveUserInfo,
+    fetchInventories,
+    addNewInventory,
+    deleteInventory,
+    updateInventory,
+    fetchOrders,
+    cancelOrder,
+    approveOrder,
+    completeOrder
+};
 
 export default connect(mapState, actionList)(Main);

@@ -1,4 +1,4 @@
-import { FETCH_ORDERS, CANCEL_ORDER, APPROVE_ORDER } from "../constants"
+import { FETCH_ORDERS, CANCEL_ORDER, APPROVE_ORDER, COMPLETE_ORDER } from "../constants"
 import { orders } from "../../common/dummy";
 
 
@@ -18,15 +18,20 @@ export default (state = initialState, action) => {
         case CANCEL_ORDER:
             return {
                 ...state,
-                orderCancelled: [ ...state.orderCancelled, state.orders.filter(order => order.id === action.payload)[0] ],
+                orderCancelled: [ state.orders.filter(order => order.id === action.payload)[0], ...state.orderCancelled ],
                 orderUnprocessed: state.orderUnprocessed.filter(order => order.id !== action.payload)
             }
         case APPROVE_ORDER:
             return {
                 ...state,
-                // orderOngoing: [ ...state.orderOngoing, state.orders.filter(order => order.id === action.payload)[0] ],
-                orderCancelled: [ ...state.orderCancelled, state.orders.filter(order => order.id === action.payload)[0] ],
+                orderOngoing: [ state.orders.filter(order => order.id === action.payload)[0], ...state.orderOngoing ],
                 orderUnprocessed: state.orderUnprocessed.filter(order => order.id !== action.payload)
+            }
+        case COMPLETE_ORDER:
+            return {
+                ...state,
+                orderOngoing: state.orderOngoing.filter(order => order.id !== action.payload),
+                orderCompleted: [ state.orders.filter(order => order.id === action.payload)[0], ...state.orderCompleted ]
             }
         default:
             return state

@@ -13,9 +13,13 @@ class Dashboard extends React.Component {
     }
 
     handleApproveOrder = (orderId) => {
-        console.log(orderId)
         this.props.approveOrder(orderId)
         message.success("The order has been approved")
+    }
+
+    handleCompleteOrder = (orderId) => {
+        this.props.completeOrder(orderId)
+        message.success("The order has been marked as completed")
     }
 
     render() {
@@ -79,7 +83,12 @@ class Dashboard extends React.Component {
                             )) }
                         </Collapse>
 
-                        <h3>On-going - <span>{orderOngoing.length} {orderOngoing.length > 1 ? "orders" : "order"}</span></h3>
+                        <h3>On-going - 
+                            <span>
+                                {orderOngoing.length > 0 ? orderOngoing.length : null} 
+                                 {orderOngoing.length === 0 ? " No on-going order for now" : (orderOngoing.length > 1 ? " orders" : " order")}
+                            </span>
+                        </h3>
                         <Collapse bordered={false}>
                             { orderOngoing && orderOngoing.map(order => (
                                 <Collapse.Panel header={`${order.customer.name} - ${order.charteredFor}`} key={order.id}>
@@ -99,11 +108,10 @@ class Dashboard extends React.Component {
                                     <Row>
                                         <Col>
                                             <div className="actions">
-                                                <Button type="primary" size="large">
-                                                    <Icon type="plus" /> Approve this order...
-                                                </Button> &nbsp;
-                                                <Popconfirm title="Are you sure want to cancel this order?" onConfirm={() => this.handleCancelOrder(order.id)}>
-                                                    <Button type="dashed" size="large" className="link-btn"> Cancel this order... </Button>
+                                                <Popconfirm title="Are you sure want to mark this order as completed?" onConfirm={() => this.handleCompleteOrder(order.id)}>
+                                                    <Button type="primary" size="large">
+                                                        Mark this order as completed...
+                                                    </Button>
                                                 </Popconfirm>
                                             </div>
                                         </Col>
