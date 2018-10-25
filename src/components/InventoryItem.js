@@ -57,7 +57,7 @@ const InventoryItem = ({ item, edit, expand, transState, yearState, bodyState, o
                     item={item}
                     onChangeTransmission={onChangeTransmission}
                 /> ) : <List.Item.Meta
-                        avatar={<Avatar src={avatar} />}
+                        avatar={!currentlyExpanding ? <Avatar src={avatar} /> : null}
                         title={item.title}
                         description={currentlyExpanding || expandingFromSearch ? (
                         <div className="inventory-detail">

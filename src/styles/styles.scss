@@ -36,12 +36,15 @@
 .search-container {
     margin-top: -77px;
     margin-bottom: $baseSize * 4;
+    .ant-select-selection {
+        background: transparent;
+    }
     .ant-select-auto-complete.ant-select .ant-input {
+        background: #fff !important;
         height: 42px;
         border: none;
         border-radius: 50px;
         box-shadow: 2px 4px 8px rgba(0, 0, 0, .1);
-        // min-width: 300px;
     }
     .ant-select-auto-complete.ant-select .ant-select-selection--single {
         border-radius: 50px !important;
