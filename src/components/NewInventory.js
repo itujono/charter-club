@@ -1,12 +1,14 @@
 import React from "react"
 import { Formik } from "formik"
 import { Form, Row, Col, Input, Select, Button, Icon } from "antd"
+import { inventorySchema } from "../common"
 
 
 
 const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, cancelAddNew, addNewInventory, onChangeTransmission, onChangeYear, onChangeBodyType }) => (
     <Formik
         initialValues={{ transmission: transmission[0].value }}
+        validationSchema={inventorySchema}
         onSubmit={(values) => {
             const data = {
                 title: values.title,
@@ -20,26 +22,47 @@ const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, c
                 kilometers: values.kilometers,
                 fuelType: values.fuelType,
                 price: values.price,
+                images: ["http://source.unsplash.com/random/"],
                 year
             }
-            addNewInventory(data)
-            cancelAddNew()
+            setTimeout(() => {
+                addNewInventory(data)
+                cancelAddNew()
+            }, 2000)
         }}
-        render={({ values, handleChange, handleBlur, handleSubmit }) => (
-            <Form layout="vertical" onSubmit={handleSubmit} className="main-form">
+        render={({ values, handleChange, handleBlur, handleSubmit, errors, isValid, dirty, isSubmitting }) => (
+            <Form layout="vertical" onSubmit={handleSubmit} className={isSubmitting ? "main-form loading" : "main-form"}>
                 <Row gutter={24}>
                     <Col span={8}>
-                        <Form.Item label="Title">
+                        <Form.Item 
+                            label="Title" 
+                            hasFeedback
+                            required
+                            help={errors.title} 
+                            validateStatus={errors.title ? "warning" : (isValid ? "success" : "")}
+                        >
                             <Input size="large" onChange={handleChange} onBlur={handleBlur} value={values.title} type="text" name="title" placeholder="The title of the vehicle" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Make">
+                        <Form.Item
+                            label="Make"
+                            hasFeedback 
+                            required
+                            help={errors.make} 
+                            validateStatus={errors.make ? "warning" : (isValid ? "success" : "")}
+                        >
                             <Input size="large" onChange={handleChange} onBlur={handleBlur} value={values.make} type="text" name="make" placeholder="The make of the vehicle" />
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Model">
+                        <Form.Item
+                            label="Model"
+                            hasFeedback 
+                            required
+                            help={errors.model} 
+                            validateStatus={errors.model ? "warning" : (isValid ? "success" : "")}
+                        >
                             <Input size="large" onChange={handleChange} onBlur={handleBlur} value={values.model} type="text" name="model" placeholder="The model of the vehicle" />
                         </Form.Item>
                     </Col>
@@ -70,7 +93,13 @@ const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, c
                 </Row>
                 <Row gutter={24}>
                     <Col span={8}>
-                        <Form.Item label="Body Type">
+                        <Form.Item
+                            label="Body Type"
+                            hasFeedback 
+                            required
+                            help={errors.bodyType} 
+                            validateStatus={errors.bodyType ? "warning" : (isValid ? "success" : "")}
+                        >
                             <Select size="large" onBlur={handleBlur} onChange={onChangeBodyType} name="bodyType" placeholder="The body type of the vehicle">
                                 { bodyType.map(item => <Select.Option key={item.id} value={item.value}>{item.text}</Select.Option>) }
                             </Select>
@@ -96,12 +125,18 @@ const NewInventory = ({ transmission, years, year, bodyType, trans, bodyState, c
                         </Form.Item>
                     </Col>
                     <Col span={8}>
-                        <Form.Item label="Price">
+                        <Form.Item
+                            label="Price"
+                            hasFeedback 
+                            required
+                            help={errors.price} 
+                            validateStatus={errors.price ? "warning" : (isValid ? "success" : "")}
+                        >
                             <Input size="large" onBlur={handleBlur} onChange={handleChange} value={values.price} type="number" name="price" placeholder="The price for rent of the vehicle" />
                         </Form.Item>
                     </Col>
                 </Row>
-                <Button type="primary" htmlType="submit" size="large"><Icon type="plus" /> Submit </Button> &nbsp;
+                <Button type="primary" disabled={!dirty || !isValid} htmlType="submit" size="large"><Icon type="plus" /> Submit </Button> &nbsp;
                 <Button size="large" className="link-btn" onClick={cancelAddNew}> Cancel </Button>
             </Form>
         )}
