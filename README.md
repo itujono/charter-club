@@ -28,6 +28,5 @@ This project is for educational and testing purposes only.
 ### What's Undone Yet
 - Backend, server, and database implementation
 - Search functionality seems not solid enough just yet
-- There's no validation on user profile form just yet
 - Responsiveness even has not been touched yet at all
 - Proper animation and transitions
