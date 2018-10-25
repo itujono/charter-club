@@ -54,7 +54,7 @@
 .heading {
     color: #999;
     margin-bottom: $baseSize * 3;
-    h2 {
+    h2, h4 {
         margin-bottom:  0;
         color: $blueish;
     }
@@ -197,6 +197,19 @@
             > .ant-row:first-child {
                 margin-bottom: $baseSize * 2;
             }
+        }
+    }
+}
+
+.extra-features {
+    margin-bottom: $baseSize * 3;
+    .ant-checkbox-group {
+        line-height: 3;
+    }
+    > div {
+        > .ant-checkbox-wrapper {
+            font-weight: bold;
+            margin-bottom: $baseSize * 2;
         }
     }
 }

@@ -29,7 +29,7 @@ class Main extends React.Component {
 
         const { edit } = this.state
         const { user, saveUserInfo, inventories, addNewInventory, deleteInventory, updateInventory, orders, cancelOrder,
-            orderProps, approveOrder, completeOrder, titles } = this.props;
+            orderProps, approveOrder, completeOrder, titles, extras } = this.props;
 
         return (
             <div className="main-app">
@@ -101,6 +101,7 @@ class Main extends React.Component {
                                                 updateInventory={updateInventory}
                                                 inventories={inventories}
                                                 titles={titles}
+                                                extras={extras}
                                             />
                                         )} />
 										<Route
@@ -139,13 +140,15 @@ const mapState = ({ user, inventory, order }) => {
     }
 
     const inventoryTitle = inventory && inventory.inventories.map(inv => inv.title)
+    const extras = inventory && inventory.inventories[0].extras
 
     return {
         user: user.user,
         inventories: inventory.inventories,
         orders: order.orders,
         titles: inventoryTitle,
-        orderProps
+        orderProps,
+        extras
     }
 }
 
